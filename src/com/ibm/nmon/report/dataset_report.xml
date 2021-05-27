@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<charts>
+  <linechart name="CPU Utilization" shortName="CPU" stacked="true">
+    <yAxis label="% CPU" asPercent="true" />
+    <data>
+      <host os="UNIX" />
+      <type name="CPU_ALL" />
+      <field name="User%" alias="User" />
+      <field name="Sys%" alias="System" />
+      <field name="Wait%" alias="Wait" />
+    </data>
+
+    <data>
+      <host os="PERFMON" />
+      <type name="Processor (Total)" />
+      <field name="% User Time" alias="User" />
+      <field name="% Privileged Time" alias="System" />
+      <field name="% Interrupt Time" alias="Interrupt" />
+      <field name="% DPC Time" alias="DPC" />
+    </data>
+  </linechart>
+
+  <linechart name="Total Disk Read and Write" shortName="Disk" stacked="true">
+    <yAxis label="KB / s" />
+    <data>
+      <host os="UNIX" />
+      <type name="DISKREAD" />
+      <field name="Total" alias="Read" />
+    </data>
+    <data>
+      <host os="UNIX" />
+      <type name="DISKWRITE" />
+      <field name="Total" alias="Write" />
+    </data>
+
+    <data>
+      <host os="PERFMON" />
+      <type name="LogicalDisk (Total)" />
+      <field name="Disk Read KB/sec" alias="Read" />
+      <field name="Disk Write KB/sec" alias="Write" />
+    </data>
+  </linechart>
+
+  <linechart name="Memory Usage" shortName="Memory" stacked="true">
+    <yAxis label="MB" />
+    <data>
+      <host os="UNIX" />
+      <type name="MEM" />
+      <!-- Linux -->
+      <field name="active" />
+      <field name="inactive" />
+      <field name="memfree" />
+      <!-- AIX -->
+      <field name="Real used(MB)" alias="used" />
+      <field name="Real free(MB)" alias="free" />
+    </data>
+
+    <data>
+      <host os="PERFMON" />
+      <type name="Memory" />
+      <field name="Committed MB" alias="Committed" />
+      <field name="Cache MB" alias="Cache" />
+      <field name="Available MB" alias="Available" />
+    </data>
+  </linechart>
+
+  <linechart name="Memory Usage by Component" shortName="Memory Use" stacked="true">
+    <yAxis label="MB" asPercent="true" />
+    <data>
+      <host os="AIX" />
+      <type name="MEMNEW" />
+      <field name="System%" alias="System" />
+      <field name="FScache%" alias="File System" />
+      <field name="Process%" alias="Processes" />
+    </data>
+  </linechart>
+
+  <linechart name="Swap Usage" shortName="Swap" stacked="true">
+    <yAxis label="MB" />
+    <data>
+      <host os="UNIX" />
+      <type name="MEM" />
+      <!-- Linux -->
+      <field name="swapused" />
+      <field name="swapfree" />
+      <!-- AIX -->
+      <field name="Virtual used(MB)" />
+      <field name="Virtual free(MB)" />
+    </data>
+  </linechart>
+
+  <linechart name="Swap Usage" shortName="Swap">
+    <yAxis label="% Used" asPercent="true" />
+    <data>
+      <host os="PERFMON" />
+      <type name="Paging File (Total)" />
+      <field name="% Usage" />
+    </data>
+  </linechart>
+
+  <linechart name="Total Ethernet Read and Write" shortName="Network" stacked="true">
+    <yAxis label="KB / s" />
+    <data>
+      <host os="UNIX" />
+      <type name="NETETOTAL" />
+      <field name="total-read-KB/s" alias="Read" />
+      <field name="total-write-KB/s" alias="Write" />
+    </data>
+
+    <data>
+      <host os="PERFMON" />
+      <type name="Network Interface (Total)" />
+      <field name="KB Received/sec" alias="Read" />
+      <field name="KB Sent/sec" alias="Write" />
+    </data>
+  </linechart>
+  
+  <linechart name="Total Shared Ethernet Read and Write" shortName="Virtual Network" stacked="true">
+    <yAxis label="KB / s" />
+    <data>
+      <host os="VIOS" />
+      <type name="SEAETOTAL" />
+      <field name="total-read-KB/s" alias="Read" />
+      <field name="total-write-KB/s" alias="Write" />
+    </data>
+  </linechart>
+
+  <linechart name="Total Disk Reads" shortName="Disk Reads" stacked="true">
+    <yAxis label="KB / s" />
+    <data>
+      <host os="UNIX" />
+      <type name="DISKREAD" />
+      <field name="$DISKS" />
+    </data>
+  </linechart>
+
+  <linechart name="Total Disk Writes" shortName="Disk Writes" stacked="true">
+    <yAxis label="KB / s" />
+    <data>
+      <host os="UNIX" />
+      <type name="DISKWRITE" />
+      <field name="$DISKS" />
+    </data>
+  </linechart>
+
+  <linechart name="Total Disk Reads" shortName="Disk Reads" stacked="true" linesNamedBy="TYPE">
+    <yAxis label="KB / s" />
+    <data>
+      <host os="PERFMON" />
+      <type regex="LogicalDisk \(((?!Total).*)\)" />
+      <field name="Disk Read KB/sec" />
+    </data>
+  </linechart>
+
+  <linechart name="Total Disk Writes" shortName="Disk Writes" stacked="true" linesNamedBy="TYPE">
+    <yAxis label="KB / s" />
+    <data>
+      <host os="PERFMON" />
+      <type regex="LogicalDisk \(((?!Total).*)\)" />
+      <field name="Disk Write KB/sec" />
+    </data>
+  </linechart>
+
+  <linechart name="Disk Percent Busy" shortName="Disk Busy">
+    <yAxis label="% Busy" asPercent="true" />
+    <data>
+      <host os="UNIX" />
+      <type name="DISKBUSY" />
+      <field name="$DISKS" />
+    </data>
+  </linechart>
+
+  <linechart name="Disk Percent Busy" shortName="Disk Busy" linesNamedBy="TYPE">
+    <yAxis label="% Busy" asPercent="true" />
+    <data>
+      <host os="PERFMON" />
+      <type regex="LogicalDisk \(((?!Total).*)\)" />
+      <field name="% Disk Time" />
+    </data>
+  </linechart>
+
+  <linechart name="Total Disk Transfers" shortName="Disk Transfers" stacked="true">
+    <yAxis label="Transfers / s" />
+    <data>
+      <host os="UNIX" />
+      <type name="DISKXFER" />
+      <field name="$DISKS" />
+    </data>
+  </linechart>
+
+  <linechart name="Total Disk Transfers" shortName="Disk Transfers" stacked="true" linesNamedBy="TYPE">
+    <yAxis label="Transfers / s" />
+    <data>
+      <host os="PERFMON" />
+      <type regex="LogicalDisk \(((?!Total).*)\)" />
+      <field name="Disk Transfers/sec" />
+    </data>
+  </linechart>
+
+  <linechart name="Network Reads" shortName="Network Reads" stacked="true">
+    <yAxis label="KB / s" />
+    <data>
+      <host os="UNIX" />
+      <type name="NET" />
+      <field regex="((eth|en|lo).*)-read-KB/s" />
+    </data>
+  </linechart>
+
+  <linechart name="Network Writes" shortName="Network Writes" stacked="true">
+    <yAxis label="KB / s" />
+    <data>
+      <host os="UNIX" />
+      <type name="NET" />
+      <field regex="((eth|en|lo).*)-write-KB/s" />
+    </data>
+  </linechart>
+
+  <linechart name="Network Reads" shortName="Network Reads" stacked="true" linesNamedBy="TYPE">
+    <yAxis label="KB / s" />
+    <data>
+      <host os="PERFMON" />
+      <type regex="Network Interface \(((?!Total).*)\)" />
+      <field name="KB Received/sec" />
+    </data>
+  </linechart>
+
+  <linechart name="Network Writes" shortName="Network Writes" stacked="true" linesNamedBy="TYPE">
+    <yAxis label="KB / s" />
+    <data>
+      <host os="PERFMON" />
+      <type regex="Network Interface \(((?!Total).*)\)" />
+      <field name="KB Sent/sec" />
+    </data>
+  </linechart>
+
+ <linechart name="Shared Network Reads" shortName="Shared Network Reads" stacked="true">
+    <yAxis label="KB / s" />
+    <data>
+      <host os="VIOS" />
+      <type name="SEA" />
+      <field regex="((eth|en|lo).*)-read-KB/s" />
+    </data>
+  </linechart>
+
+  <linechart name="Shared Network Writes" shortName="Shared Network Writes" stacked="true">
+    <yAxis label="KB / s" />
+    <data>
+      <host os="VIOS" />
+      <type name="SEA" />
+      <field regex="((eth|en|lo).*)-write-KB/s" />
+    </data>
+  </linechart>
+  
+  <linechart name="Run Queue">
+    <yAxis label="Queue Length" />
+    <data>
+      <host os="UNIX" />
+      <type name="PROC" />
+      <field name="Runnable" alias="Run Queue" />
+    </data>
+
+    <data>
+      <host os="PERFMON" />
+      <type name="System" />
+      <field name="Processor Queue Length" alias="Run Queue" />
+    </data>
+  </linechart>
+
+  <linechart name="Process Switches">
+    <yAxis label="Switches / s" />
+    <data>
+      <host os="UNIX" />
+      <type name="PROC" />
+      <field name="pswitch" alias="Process Switches" />
+      <field name="fork" alias="Forks" />
+    </data>
+
+    <data>
+      <host os="PERFMON" />
+      <type name="System" />
+      <field name="Context Switches/sec" alias="Process Switches" />
+    </data>
+  </linechart>
+
+  <linechart name="Page Faults">
+    <yAxis label="Faults / s" />
+    <data>
+      <host os="LINUX" />
+      <type name="VM" />
+      <field name="pgmajfault" alias="Major" />
+      <field name="pgfault" alias="Minor" />
+    </data>
+    <data>
+      <host os="AIX" />
+      <type name="PAGE" />
+      <field name="faults" alias="Faults" />
+    </data>
+
+    <data>
+      <host os="PERFMON" />
+      <type name="Memory" />
+      <field name="Page Faults/sec" alias="Page Faults" />
+      <field name="Cache Faults/sec" alias="Cache Faults" />
+    </data>
+  </linechart>
+
+  <linechart name="Amount Paged to File System" shortName="Paging Amount">
+    <yAxis label="KB / s" />
+    <data>
+      <host os="LINUX" />
+      <type name="VM" />
+      <field regex="pgpg.*" />
+
+      <fieldAlias name="pgpgin" value="In" />
+      <fieldAlias name="pgpgout" value="Out" />
+      <fieldAlias name="pgsin" value="In" />
+      <fieldAlias name="pgsout" value="Out" />
+    </data>
+  </linechart>
+
+  <linechart name="Amount Paged to File System" shortName="Paging Amount">
+    <yAxis label="Pages / s" />
+    <data>
+      <host os="AIX" />
+      <type name="PAGE" />
+      <field regex="pgs.*" />
+
+      <fieldAlias name="pgpgin" value="In" />
+      <fieldAlias name="pgpgout" value="Out" />
+      <fieldAlias name="pgsin" value="In" />
+      <fieldAlias name="pgsout" value="Out" />
+    </data>
+  </linechart>
+
+  <linechart name="Amount Paged to File System" shortName="Paging Amount">
+    <yAxis label="Pages / s" />
+
+    <data>
+      <host os="PERFMON" />
+      <type name="Memory" />
+      <field name="Pages Output/sec" alias="Out" />
+      <field name="Pages Input/sec" alias="In" />
+      <field name="Page Reads/sec" alias="Read" />
+    </data>
+  </linechart>
+
+  <linechart name="CPUs Used vs Entitlement" shortName="CPU Entitlement">
+    <yAxis label="CPUs" />
+    <data>
+      <host os="AIX" />
+      <type name="PCPU_ALL" />
+
+      <field name="Entitled Capacity" alias="Entitled" />
+      <field name="Total" alias="Used" />
+    </data>
+  </linechart>
+
+  <linechart name="Virtual CPU Folding" shortName="vCPU Folding" stacked="true">
+    <yAxis label="CPUs" />
+    <data>
+      <host os="AIX" />
+      <type name="LPAR" />
+
+      <field name="Unfolded" />
+      <field name="Folded" />
+    </data>
+  </linechart>
+
+  <linechart name="Shared Pool Utilization" shortName="Shared Pool" stacked="true">
+    <yAxis label="CPUs" />
+    <data>
+      <host os="AIX" />
+      <type name="LPAR" />
+
+      <field name="PhysicalCPU" alias="This LPAR" />
+      <field name="OtherLPARs" alias="Other LPARs" />
+      <field name="PoolIdle" alias="Idle" />
+    </data>
+  </linechart>
+
+ <linechart name="Top Processes" shortName="Top Processes" linesNamedBy="TYPE">
+    <yAxis label="% CPU" asPercent="true" />
+    <data>
+      <type name="$TOP_PROCESSES_BY_CPU" />
+      <!-- Unix -->
+      <field name="%CPU" alias="% CPU" />
+      <!-- Windows -->
+      <field name="% Processor Time" />
+    </data>
+  </linechart>
+ 
+  <linechart name="CPU Utilization by Logical Core" shortName="All CPUs" linesNamedBy="TYPE">
+    <yAxis label="% CPU" asPercent="true" />
+    <data>
+      <host os="Linux" />
+      <type regex="CPU0?0?(\d*)" />
+      <field name="CPU%" alias="% CPU" />
+    </data>
+
+    <data>
+      <host os="PERFMON" />
+      <type regex="Processor \(((?!Total).*)\)" />
+      <field name="% Processor Time" />
+    </data>
+  </linechart>
+
+  <linechart name="CPU Utilization by Thread" shortName="All CPUs" linesNamedBy="TYPE">
+    <yAxis label="% CPU" asPercent="true" />
+    <data>
+      <host os="AIX" />
+      <type regex="CPU0?0?(\d*)" />
+      <field name="CPU%" alias="% CPU" />
+    </data>
+  </linechart>
+
+  <barchart name="CPU Utilization by Logical Core" shortName="CPU Balance" stacked="true">
+    <yAxis label="% CPU" asPercent="true" />
+    <data>
+      <host os="Linux" />
+      <type regex="CPU0?0?(\d*)" />
+      <field name="User%" alias="User" />
+      <field name="Sys%" alias="System" />
+      <field name="Wait%" alias="Wait" />
+    </data>
+
+    <data>
+      <host os="PERFMON" />
+      <type regex="Processor \(((?!Total).*)\)" />
+      <field name="% User Time" alias="User" />
+      <field name="% Privileged Time" alias="System" />
+      <field name="% Interrupt Time" alias="Interrupt" />
+      <field name="% DPC Time" alias="DPC" />
+    </data>
+  </barchart>
+
+  <barchart name="CPU Utilization by Thread" shortName="CPU Balance" stacked="true">
+    <yAxis label="% CPU" asPercent="true" />
+    <data>
+      <host os="AIX" />
+      <type regex="CPU0?0?(\d*)" />
+      <field name="User%" alias="User" />
+      <field name="Sys%" alias="System" />
+      <field name="Wait%" alias="Wait" />
+    </data>
+  </barchart>
+
+  <barchart name="Percent Disk Space Used by File System" shortName="Disk Space" categoriesNamedBy="FIELD" barsNamedBy="STAT" stacked="true" subtractionNeeded="true">
+    <yAxis label="% Used" asPercent="true" />
+    <data stat="MINIMUM">
+      <host os="UNIX" />
+      <type name="JFSFILE" />
+    </data>
+    <data stat="AVERAGE">
+      <host os="UNIX" />
+      <type name="JFSFILE" />
+    </data>
+    <data stat="MAXIMUM">
+      <host os="UNIX" />
+      <type name="JFSFILE" />
+    </data>
+  </barchart>
+
+  <barchart name="Percent Disk Space Used by File System" shortName="Disk Space" categoriesNamedBy="TYPE" barsNamedBy="STAT" stacked="true" subtractionNeeded="true">
+    <yAxis label="% Used" asPercent="true" />
+
+    <data stat="MINIMUM">
+      <host os="PERFMON" />
+      <type regex="LogicalDisk \(((?!Total).*)\)" />
+      <field name="% Used Space" />
+    </data>
+    <data stat="AVERAGE">
+      <host os="PERFMON" />
+      <type regex="LogicalDisk \(((?!Total).*)\)" />
+      <field name="% Used Space" />
+    </data>
+    <data stat="MAXIMUM">
+      <host os="PERFMON" />
+      <type regex="LogicalDisk \(((?!Total).*)\)" />
+      <field name="% Used Space" />
+    </data>
+  </barchart>
+</charts>

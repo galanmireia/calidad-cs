@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Charts for IOStat extended disk statistics.
+Note the type regex shows _all disks_ so it may take multiple seconds to render each chart when there are many disks.
+Consider changing the regex to match only a few disks.
+Also consider hiding the legend via View -> Chart -> Line Chart Legends (CRTL-SHIFT-L) -->
+<charts>
+  <linechart name="CPU" shortName="CPU" stacked="true">
+    <yAxis label="% CPU" asPercent="true" />
+    <data>
+      <type name="IOStat CPU" />
+      <field name="%user" alias="User"/>
+      <field name="%sys" alias="System"/>
+      <field name="%iowait" alias="IO Wait"/>
+    </data>
+  </linechart>
+
+  <linechart name="Disk Busy" shortName="Busy" linesNamedBy="TYPE">
+    <yAxis label="% Busy" asPercent="true" />
+    <data>
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="%util" />
+      <field name="%tm_act" />
+    </data>
+  </linechart>
+
+  <linechart name="Disk Wait" shortName="Disk Wait" linesNamedBy="TYPE">
+    <yAxis label="ms" />
+    <data>
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="await" />
+      <field name="avgtime" />
+    </data>
+  </linechart>
+
+  <linechart name="Disk Wait (Read)" shortName="Read Wait" linesNamedBy="TYPE">
+    <yAxis label="ms" />
+    <data>
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="r_await" />
+      <field name="r_avgserv" />
+    </data>
+  </linechart>
+
+  <linechart name="Disk Wait (Write)" shortName="Write Wait" linesNamedBy="TYPE">
+    <yAxis label="ms" />
+    <data>
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="w_await" />
+      <field name="r_avgserv" />
+    </data>
+  </linechart>
+
+  <linechart name="Reads" shortName="Reads" linesNamedBy="TYPE">
+    <yAxis label="per second" />
+    <data>
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="r/s" />
+      <field name="rps" />
+    </data>
+  </linechart>
+
+  <linechart name="Writes" shortName="Writes" linesNamedBy="TYPE">
+    <yAxis label="per second" />
+    <data>
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="w/s" />
+      <field name="wps" />
+    </data>
+  </linechart>
+
+  <linechart name="MB Read" shortName="Read" linesNamedBy="TYPE">
+    <yAxis label="MB/s" />
+    <data>
+       <host os="LINUX" />
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="rMB/s" />
+    </data>
+  </linechart>
+
+  <linechart name="MB Written" shortName="Write" linesNamedBy="TYPE">
+    <yAxis label="MB/s" />
+    <data>
+      <host os="LINUX" />
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="wMB/s" />
+    </data>
+  </linechart>
+
+  <linechart name="Bytes Read" shortName="Read" linesNamedBy="TYPE">
+    <yAxis label="Bps" />
+    <data>
+      <host os="AIX" />
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="bread" />
+    </data>
+  </linechart>
+
+  <linechart name="Bytes Written" shortName="Write" linesNamedBy="TYPE">
+    <yAxis label="Bps" />
+    <data>
+      <host os="AIX" />
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="bwrtn" />
+    </data>
+  </linechart>
+
+  <linechart name="Reads Queued" shortName="ReadQ" linesNamedBy="TYPE">
+    <yAxis label="reads queued/s" />
+    <data>
+      <host os="LINUX" />
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="rrqm/s" />
+    </data>
+  </linechart>
+
+  <linechart name="Writes Queued" shortName="WriteQ" linesNamedBy="TYPE">
+    <yAxis label="writes queued/s" />
+    <data>
+      <host os="LINUX" />
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="wrqm/s" />
+    </data>
+  </linechart>
+
+  <barchart name="Disk Queue Size" shortName="Disk Queue" categoriesNamedBy="TYPE" barsNamedBy="STAT" stacked="true" subtractionNeeded="true">
+    <data stat="MINIMUM">
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="avgqu-sz" />
+      <field name="avgwqsz" />
+    </data>
+    <data stat="AVERAGE">
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="avgqu-sz" />
+      <field name="avgwqsz" />
+    </data>
+    <data stat="MAXIMUM">
+      <type regex="IOStat (Device|Disks|Paths/Disks) \((.*)\)" aliasByGroup="2" />
+      <field name="avgqu-sz" />
+      <field name="avgwqsz" />
+    </data>
+  </barchart>
+</charts>
